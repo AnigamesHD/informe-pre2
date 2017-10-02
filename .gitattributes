@@ -1,5 +1,4 @@
-# Auto detect text files and perform LF normalization
-* text=auto#<strong>Trabajo Práctico Nº3: Ensamblaje de genomas y predicción de genes</strong>
+#<strong>Trabajo Práctico Nº5: Metagenómica</strong>
 
 #BIT120
 
@@ -11,68 +10,51 @@ __Profesores:__
 
                                                                                              -Nombre: Jocelyn López
                                                                                              -Carrera: Ingeniería en Biotecnología
-                                                                                             -Fecha de entrega: 07/04/16
+                                                                                             -Fecha de entrega: 05/05/16
 
 
 ---
 
-####<strong>Parte 1: El artículo genoma</strong>
+####<strong>Plataforma MG-RAST y exploración de metagenomas</strong>
 
 ####<strong>Responde:
-####1. ¿Cuántos genomas han sido depositados en GOLD? ¿Son los mismos de GENBANK?
-#####R.-  Al realizar una búsqueda en la base de datos de GOLD sobre el organismo <em>Neurospora crassa</em>, se encontraron 836 genomas depositados, mientras que al realizar la búsqueda del genoma del mismo organismo eucarionte en la base de datos de GENBANK, se encontraron sólo 2 entradas para <em> Neurospora crassa </em>. 
-####2. ¿Cuál es la distribución de procariontes y eucariontes secuenciados?
-#####R.- En GOLD, para establecer una razón de los organismos secuenciados entre eucariontes y procariontes, se encuentra un total hasta la fecha de 74176; donde las entradas respecto a eucariontes es de 12412, y si para procariontes se incluyen las entradas para bacterias, con un número de 55908 entradas, y archeas con 1231 (ausentando las entradas referentes a virus), se puede establecer una distribución en la razon:
+####1. ¿Cuántas secuencias fueron subidas?
+#####R.- En la plataforma de MG-RAST para el proyecto metagenoma de JVCI Global Ocean Sampling Expedition, para la muestra tomada del sitio de buceo de Dirty Rock en las Islas Cocos de Costa Rica, se indican 120671 secuencias subidas (Upload: Sequences Count). 
+####2. ¿Qué tipo de plataforma de secuenciamiento fue usada para producir estos datos?
+#####R.- En primer lugar, luego de que obtuvieron la muestra, llevaron a cabo un secuenciamiento mediante el método de metagenómica de Shotgun, el cual desde la muestra tomada directamente del ambiente, el DNA se corta en pequeños fragmentos que se secuencian de forma independiente, dando lugar a reads los cuales se alinean posteriormente. Luego, de todas las secuencias para realizar un control de calidad, utilizaron la plataforma de DRISEE la cual provee un método para validar la calidad al detecar errores en genomas completos obtenidos por secuenciamiento a través de metagenómica de Shotgun, y utilizar estos datos para descubrir errores no caracterizados previamente en las plataformas de secuenciación de 454 e Illumina. Para esta muestra, DRISEE no pudo producir un perfil, ya que la muestra falló en cubrir los requerimientos mínimos de ADR (artificial duplicate reads) para calcular un perfil de error. Por ello, prosiguieron a realizar perfiles mediante kmers, en donde la abundancia en el espectro de kmers son herramientas para resumir la redundancia (repeticiones) de un conjunto de datos de secuencias; y luego un histograma de posición de nucleotidos, en donde los perfiles de posición de nucleótidos muestran la abundancia relativa de las cuatro pares de bases en todos los reads. Posterior al control de calidad, las secuencias fueron analizadas y procesadas mediante el sistema de metagenómica de MG-RAST para obtener los resultados mostrados en la página, en donde a las características proteicas predichas, se les asignó una anotación al utilizar la base de datos de proteinas de M5NR.
+####3. ¿Cuántas secuencias pasaron el control de calidad? ¿A qué crees que se refiere esto?
+#####R.- 120671 secuencias pasaron el control de calidad (QC, Quality Control), las cuales fueron las secuencias subidas en primer lugar, ya que 0 fallaron en pasar el QC (0,0%). El control de calidad (QC) se refiere al filtro de datos para secuenciación de nucleótidos, incluyendo la remoción de "artificial duplicate reads" (reads que pueden conducir a una interpretación incorrecta de la abundancia de genes y especies en estudios de metagenómica), recortes de reads basados en calidad, recortes de reads basados en longitud, y detección (screening) de ADN de organismos modelos no humanos.
 
-#####(bacterias + archeas)/eucariontes = (55908+1231)/12412 = 57139/12412 = 4,60 ~ 5 ; aproximadamente una razon de 5:1.
+####4. ¿Cuántos otros metagenomas están disponibles para el bioma “marine habitat”?
+#####R.- Si se dirige hacia el buscador de metagenomas y se flitran los resultados para la bioma "marine habitat", se encuentran 236 metagenomas anotados.
+####5. ¿Cuántas reads fueron asignadas a eucariontes según MG-RAST?
+#####R.- Del proyecto por JVCI Global Ocean Sampling Expedition, para la muestra tomada del sitio de buceo de Dirty Rock, si se dirige hacia "Taxonomic Hits Distribution", en donde se ilustra la distribución taxónomica en donde cada trozo de los gráficos indican el porcentaje de reads con proteinas y genes de RNA ribosomoles predichos (segpun las bases de datos que MG-RAST utiliza), en el gráfico de dominios, éste indica que 20128 reads pertenecen al dominio de eucariontes (14,9%).
+####6. ¿Cuál es el filo (Phylum) más abundante en la muestra?
+#####R.- Según el gráfico de filo (Phylum), el más abundante es el de Cyanobacterias, con 39919 reads (29,6%).
+####7. ¿A cuántas secuencias se les asignó una función de acuerdo a la base de datos KEGG con un e-value entre -10 y -20?
+#####R.- Si se dirige hacia "Source Hits Distribution", la base de datos de Kegg, asignó una función según las características de las proteinas predichas que puedan tener similitud a proteinas con función conocida que estén anotadas en la base de datos, mostrando un color específico según el rango de e-value (número de alineamientos diferentes con puntajes equivalentes o mejore sque los que se esperan ocurran por chance). Para un e-value entre -10 y -20, Kegg asignó una función a 7960 secuencias.
+####8. ¿Por qué hay tan pocas secuencias con funciones asignadas según SwissProt?
 
-####<strong>-Evaluando un ensamblaje de genomas.
+####<strong>-Source Hits Distribution</strong>
+
+![Texto Alternativo](http://i.imgur.com/tSgNmuo.png)
+
+#####R.- Los hits resultantes por la base de datos de SwissProt, son considerablemente menores en comparación al resto. En MG-RAST, las barras en Source Hits Distribution, representan las reads anotadas, en donde las bases de datos tienen un número diferente de hits, que depende de la cantidad de datos que la base de datos tenga para que la secuencia colocada se le asigne una función dentro de esa base de datos según la similitud que haya, produciendo hits. El hecho de que SwissProt haya producido un menor número de hits, se debe a que es una base de datos curada, es decir, que la información que la base de datos contiene está revisada, lo cual la diferencia de por ejemplo, otras bases de datos que producieron un mayor número de hits, como GenBank y TREMBL, ya que estas últimas corresponden a bases de datos no-curadas. Al estar no curadas, esto se refiere a que pueden contener secuencias redundantes, más entradas referentes a un sólo proyecto, secuencias hipotéticas, etc, por lo que generará un mayor número de hits al contener más entradas. SwissProt por su parte, contiene anotaciones de alta calidad, es no-redundante, y es de referencia cruzada con otras bases de datos, por lo que resultará en un menor número de hits al contener menos anotaciones, pero éstas estarán revisadas; por lo que la diferencia en secuencias similares a las predichas de la muestra recae en el estado de curación que existe entre las bases de datos.
+
+####<strong>Análisis de metagenomas</strong>
 
 ####<strong>Responde:
-####1. ¿Qué es el N50, L50, NG50?
-#####R.- En primer lugar, el N50 es una medida estadística que define la calidad un montaje de secuencias, que dado un conjunto de contigs con longitudes definidas, el N50 es la longitud más corta de la secuencia al 50% del genoma, es decir, que el número de bases de todos los contigs más cortos que el N50 serán más cercanas al número de bases de todos los contigs más largos al N50. El L50 por su parte, que dado un set de contigs y cada uno con su propio largo, esta medida corresponde al menor número de contigs cuya sumatoria de los largos produce el N50. El NG50, es una medida estadística similar al N50, excepto que corresponde al 50% del tamaño del genoma conocido o estimado, que debe de ser la longitud del NG50 o más largo. 
-####2. ¿Cuál es el propósito de calcular estas estadísticas?
-#####R.- El propósito del cálculo de estas estadísticas, es que al utilizarse en un conjunto de longitudes contigs o scaffolds, el N50 es como la media o mediana de las longitudes, pero tiene una mayor importancia por sobre los contigs más largos, utilizándose mayoritariamente para montaje de genomas, especialmente para referenciar longitudes contigs dentro de un montaje preliminar. El L50 se utiliza al corresponder al número de contigs cuya suma de longitudes resulta en el N50. Y sobre el NG50, permite comparaciones significativas entre distintos montajes al referirse más hacia el tamaño del genoma que el tamaño del montaje como lo hace N50, donde la comparación entre valores N50 derivados de montajes con longitudes bastante diferentes, usualmente no es informativo, por lo que se recurre en este contexto al NG50.
-####3. ¿Cuál es el genoma que escogiste? Adjunta la referencia.
-#####R.- <em> Neurospora crassa </em> OR74A. Por un asunto de falta de información, no se escogieron las otras entradas al no encontrarse una publicación de referencia para su genoma, por lo que el genoma OR74A fue el seleccionado al contener una referencia completa (segunda publicación listada).
+####1. ¿Cuántas secuencias mapearon en contra de Proteobacteria? (Usa la opción Redraw para usar reads en vez de proporciones (raw))
 
-![Texto Alternativo](http://i.imgur.com/LFXp7vY.png)
+####<strong>-Distribución por filo
 
-####Referencia:
+![Texto Alternativo](http://i.imgur.com/z2ej6qX.png)
 
-#####Maccallum I1, Przybylski D, Gnerre S, Burton J, Shlyakhter I, Gnirke A, Malek J, McKernan K, Ranade S, Shea TP, Williams L, Young S, Nusbaum C, Jaffe DB. (2009). <em>ALLPATHS 2: small genomes assembled accurately and with high continuity from short paired reads.</em> Genome Biol. 2009; 10(10): R103. 
+#####R.- Al realizar el análisis del metagenoma anterior con los parámetros requeridos (con un e-value máximo de 1e-10 comparando los datos mediante M5NR), en la pestaña de "Organism barchart 1", se muestra la distribución de dominios, y al presionar sobre el dominio de bacterias, se lista la distribución por filo (Phylum), indicando que para la categoría de Proteobacterias, se encuentran 22452 secuencias (29,98% del filo).
+####2. ¿Cuántas secuencias de Salmonella ( Proteobacteria; Gammaproteobacteria; Enterobacteriales; Enterobacteriaceae) fueron identificadas? 
 
-####4. ¿Cuál es el N50 del genoma que escogiste? ¿Y el NG50?
-#####R.- De acuerdo a la Tabla 1 del artículo (data de referencia), el N50 para <em> N. crassa </em> es de 665 kb. El NG50 no se encuentra listado.
+####<strong>-Distribución por género
 
-![Texto Alternativo](http://i.imgur.com/PtiHhxI.png)
+![Texto Alternativo](http://i.imgur.com/4Czfh0g.png)
 
-####5. ¿Qué tipo de tecnología se uso para secuenciar el genoma que escogiste?
-#####R.- En la investigación citada, se utilizaron reads de 36 bases (fragmentos) y 26 bases (jumping) de 5 genomas microbianos con composición GC variable con tamaños hasta 40 Mb. Para secuenciar el genoma de <em>N. crassa</em>, se utilizó la tecnologia ALLPATHS2, el cual es un montador (assembler) de genomas completos el cual puede generar montajes de genomas de alta calidad utilizando reads cortos; y comparando estos resultados al utilizar los algoritmos Velvet (para montajes de genomas <em> de novo </em> y secuencias de alineamiento de reads cortos, utilizado para construir secuencias continuas de forma rápida) y EULER-SR (programa para montaje de reads <em> de novo </em> que contiene programas para la correción de errores en reads cortos). Se demostró que ALLPATHS2, generó montajes con contigs y scaffolds largos y precisos, siendo los programas EULER-SR y Velvet menos precisos.
-
-####6. ¿Qué organismo escogiste, cuántos cromosomas tiene tu organismo y cuál es su tamaño?
-#####R.- El organismo <em> Neurospora crassa </em>, con un tamaño de genoma de 39226 kb, teniendo 7 cromosomas. 
-
-####<strong>Parte 2: Predicción de genes
-####<strong>Responde:
-####1.	¿Cuántos ORF o genes encontró ORFfinder?
-#####R.- ORFfinder encontró 4 ORFs o genes.
-
-![Texto Alternativo](http://i.imgur.com/rdcC6Bu.png)
-
-####2.	¿Cuántos ORF o genes encontró Glimmer?
-#####R.- GLIMMER encontró 3 ORFs o genes.
-
-![Texto Alternativo](http://i.imgur.com/D6dsL9U.png)
-
-####3.	¿Alguno de los genes predichos por estas herramientas coinciden?
-#####R.- Para establecer coincidencias entre ambos programas, deben de poseer un mismo inicio/final y marco de lectura (frame), por lo que coinciden en el primer ORF/gen que ambos encontraron, empezando en 1 y terminando en 909, con +1 en el marco de lectura. Otra coincidencia, es en la cual en ORFfinder se muestra de 1391 a 1795, mientras que en GLIMMER, comienza en 1795 y termina en 1391, ambos con un marco de lectura de -2. Esta aparente diferencia en el inicio/final del ORF/gen, puede deberse a que en GLIMMER, si el transcrito se ubica en la hebra complementaria, la lectura será negativa al estar en la hebra negativa, por lo que la lectura se muestra en dirección reversa; de la misma manera en ORFfinder, si se selecciona el ORF/gen con un frame negativo, la secuencia mostrada en la parte inferior también da a conocer un marco de lectura inverso, por lo que sí coinciden en ese ORF/gen. Por otra parte, el ORF/gen que comienza en 1388 y termina en 948, coinciden en ambos programas en el largo y dirección, pero el marco de lectura es -2 en ORFfinder y en GLIMMER -3.
-####4.	¿En qué hebra están codificados?
-#####R.- En ORFfinder, el primero se ubica en la hebra directa, al ir de 1-->909, mientras que las otras 3, se ubican en la hebra complementaria al tener un marco de lectura reverso. En GLIMMER, coincide en que el orf00001 se encuentra en la hebra directa, y los siguientes dos, orf00002 y orf00003, se ubican en la complementaria al ir de 1388-->948 y 1795-->1391, respectivamente.
-####5. ¿Qué tipo de programa es GLIMMER? ¿Ab initio o por homología?
-#####R.- En primer lugar, <em> ab initio </em> que se refiere a "desde el principio", en Bioinformática, se refiere a buscadores de genes que usan modelos estadísticos para predecir genes desde solamente la secuencia genómica. Por su parte, GLIMMER corresponde a un programa <em> Ab initio </em> al ser un sistema para la búsqueda de genes en DNA microbial, utilizando la medida estadística de modelos de Markov interpolados para identificar regiones codificantes, a partir de una secuencia genómica.
-
-####<strong>-Búsqueda en BLAST</strong>
-
-####1.	Describe los resultados encontrados con respecto a los genes que encontraste con GLIMMER y ORFfinder
-#####R.- Al realizar una búsqueda en BLAST, los genes encontrados provienen del organismo <em>Haemophilus influenzae</em>, donde el primer gen encontrado en ORFfinder (de 1 a 909), corresponde al gen FdhE, el cual codifica a la enzima formato deshidrogensasa; el siguiente (de 948 a 1388), es el gen Riml, que codifica a la proteína ribosomal-alanina N-acetiltransferasa; el tercer listado (de 1391 a 1795), corresponde al gen holD, el cual codifica la subunidad III de la DNA polimerasa; y el último listado en ORFfinder (de 455 a 598), no muestra resultados en BLAST ("No significant similarity found"), en donde al dirigirse al FAQ de BLAST, este error puede deberse a que alineamientos cortos pueden estar sobre el valor umbral default del valor Expect (parámetro que describe el número de "hits" que uno puede esperar para ver por chance cuando se realiza una búsqueda en la base de datos) y por lo tanto, no se entregan resultados respecto a esa secuencia.
+#####R.- Del filo de bacterias anterior, al presionar sobre Proteobacterias, se lista la distribución por clase, y al dirigirse hacia la clase de Gammaproteobacteria, se muestra la distribución por el orden, en donde al presionar sobre el orden de Enterobacteriales, se muestra la familia Enterobacteriaceae, y al presionar sobre ésta, se listan la distribución por género, en donde se muestra que para Salmonella, se encuentran 75 secuencias (8,06% del género). 
